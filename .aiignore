@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+vendor/
+
+# Build output
+dist/
+build/
+out/
+.next/
+.nuxt/
+
+# Caches
+.cache/
+.tmp/
+.parcel-cache/
+
+# Logs
+*.log
+
+# Coverage & reports
+coverage/
+test-results/
+
+# Lockfiles (unless explicitly needed)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Binary design files
+*.fig
+*.sketch
+*.psd

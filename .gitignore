@@ -1,0 +1,55 @@
+# Dependencies
+node_modules/
+vendor/
+Pods/
+
+# Build output
+dist/
+build/
+out/
+.next/
+.nuxt/
+.vite/
+.storybook/
+coverage/
+
+# Caches & temp files
+.cache/
+.parcel-cache/
+.tmp/
+.temp/
+.eslintcache
+.turbo/
+.swc/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Environment variables & secrets
+.env
+.env.*
+!.env.example
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor / IDE (personal)
+.vscode/settings.json
+.vscode/tasks.json
+.vscode/launch.json
+.idea/
+*.iml
+
+# Test & CI artifacts
+test-results/
+.nyc_output/
+
+# Misc
+*.pid
+*.seed
+*.pid.lock
