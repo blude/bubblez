@@ -35,6 +35,14 @@ git --version
 
 # Optional: Check Docker version
 docker --version
+
+# Recommended: Install openCode (AI-powered development assistant)
+# Visit: https://opencode.ai/ for installation instructions
+# Available for VS Code, CLI, and other editors
+
+# Recommended: Install Spec-Kit (spec-driven development tools)
+# Visit: https://github.com/sst/spec-kit for complete toolkit
+# Install via npm: `npm install -g @spec-kit/cli`
 ```
 
 ### Quick Setup (5 minutes)
