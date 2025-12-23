@@ -123,7 +123,6 @@ docs/
 └── deployment/               # Production deployment guides
 ```
 
-```
 
 **Structure Decision**: Selected hybrid web application structure with separated backend services (GoToSocial + Node.js) and PWA frontend. This supports federation requirements while maintaining clear separation of concerns for educational value.
 
@@ -179,15 +178,175 @@ docs/
 - University system integration patterns
 - Production deployment patterns
 
+## Content Strategy for Sample Data
+
+### Intent
+
+Create **authentic academic ecosystem** that demonstrates all core features while maintaining development ergonomics. Sample data should feel like a real university community with diverse content types and realistic user interactions.
+
+### Content Models
+
+**Academic Content Distribution**:
+- **Course Discussions**: CS101 algorithms, MATH203 calculus problems, ENGL305 literary analysis
+- **Study Groups**: Weekly meetings, assignment collaboration, exam preparation
+- **Research Sharing**: Papers, datasets, methodology discussions
+- **Department Life**: Engineering projects, art exhibitions, business case studies
+
+**Administrative Content Integration**:
+- **Official Announcements**: Registration dates, policy updates, campus news
+- **Course Management**: Assignment deadlines, exam schedules, room changes
+- **Event Calendar**: Guest lectures, career fairs, club meetings
+- **Support Services**: IT help, counseling hours, library resources
+
+**Social Community Building**:
+- **Student Life**: Campus events, study spot recommendations, housing discussions
+- **Interest Groups**: Photography club, debate society, hackathon teams
+- **Networking**: Alumni connections, internship opportunities, career discussions
+
+### Quality Rules
+
+**Academic Authenticity**:
+- Real university course codes and numbering schemes
+- Authentic professor names and department structures  
+- Realistic academic calendar and semester rhythm
+- Appropriate academic jargon and field-specific terminology
+- Mix of undergraduate and graduate level content
+
+**Content Diversity**:
+- User roles: 60% students, 25% professors, 15% staff
+- Academic levels: 40% intro, 35% intermediate, 25% advanced
+- Content types: 50% text-only, 30% with media, 20% discussion threads
+- Interaction levels: Mix of high-engagement and niche topics
+
+**Realistic Interaction Patterns**:
+- Posting frequency: Students 2-5 posts/week, professors 1-2 posts/week
+- Response times: Academic content 2-4 hours, social content 30 minutes
+- Bubble participation: Users join 3-8 bubbles on average
+- Media uploads: 60% images, 25% documents, 15% videos
+
+### Seeding Approach (High Level)
+
+**Phase 1: Foundation Users**
+- Create 50-100 users with authentic profiles
+- Mix of roles across 5-6 academic departments
+- Realistic course enrollments and academic schedules
+- Department chairs, teaching assistants, student leaders
+
+**Phase 2: Core Content**
+- Generate 200-300 initial droplets covering all content types
+- Create 15-20 active academic bubbles with hashtags
+- Establish trending topics and discussion patterns
+- Add basic media attachments and document sharing
+
+**Phase 3: Advanced Features**
+- Populate hotseat game scenarios with group assignments
+- Add university system integration data (assignments, deadlines)
+- Create federated content from "other universities"
+- Establish interaction patterns (votes, comments, badges)
+
+**Phase 4: Dynamic Content**
+- Real-time content generation during hotseat games
+- Automated university system sync events
+- Scheduled academic calendar events and deadlines
+- Cross-bubble content propagation and recommendations
+
+### Content Categories & Examples
+
+**Computer Science Department**:
+```javascript
+// Academic Discussion
+"Working on CS201 data structures project - anyone implemented AVL trees? Getting stack overflow errors #algorithms #study-group"
+
+// University Integration
+"SYSTEM: CS201 midterm moved to Thursday Oct 26 - Room 202A - 3 questions, closed book #announcements"
+
+// Social Content  
+"CS club meeting tomorrow! Guest speaker from Google discussing distributed systems. Pizza provided! #student-life #careers"
+```
+
+**Mathematics Department**:
+```javascript
+// Study Group
+"MATH180 calculus study group today 4pm library room 301 - Bring tough problems #calculus #study-group"
+
+// Academic Help
+"MATH203 linear algebra help needed - Finding eigenvectors confusing. Anyone available for tutoring? #math #help"
+```
+
+**Student Life**:
+```javascript
+// Campus Events
+"Fall festival this weekend! Music, food trucks, club fair. Great way to meet people outside CS dept. #campus-events #social"
+
+// Academic Resources
+"Found amazing linear algebra video series on YouTube - 3Blue1Brown explains eigenvalues perfectly! #resources #math"
+```
+
+### Content Generation Strategy
+
+**Temporal Patterns**:
+- **Academic Calendar**: Heavy posting during midterms/finals, lighter during breaks
+- **Daily Rhythms**: Morning announcements, afternoon study groups, evening social content
+- **Weekly Cycles**: Assignment deadlines on Fridays, social events on weekends
+- **Semester Progression**: Intro content early, research projects mid-term, finals prep late
+
+**Content Prioritization**:
+- **University Data**: Highest priority in relevant bubbles
+- **Professor Content**: Weighted higher in academic topics
+- **Trending Topics**: Boost visibility for active discussions
+- **New User Content**: Temporary visibility boost for onboarding
+
+**Interaction Simulation**:
+- **Realistic Response Rates**: 10-20% for academic content, 30-50% for social content
+- **Voting Patterns**: Quality-based upvotes, minimal downvotes for academic topics
+- **Badge Distribution**: Professors award "helpful" and "insightful", students award "collaborative"
+- **Cross-Department Engagement**: Engineering students joining computer science discussions
+
+### Quality Assurance Rules
+
+**Content Standards**:
+- Academic content must be relevant to university context
+- Social content should foster positive community building
+- Media content must be educational or campus-related
+- User interactions should follow academic integrity guidelines
+- University integration data must be realistic and timely
+
+**Content Filtering**:
+- Remove spam and promotional content
+- Filter inappropriate or non-academic material
+- Balance content types across departments and user roles
+- Ensure diverse representation in trending topics
+- Monitor content quality through automated and manual review
+
+### Success Metrics for Sample Data
+
+**Engagement Metrics**:
+- Average 3+ interactions per droplet within 24 hours
+- 60% of users join at least 2 bubbles within first week
+- Hotseat game participation rate of 40% for active users
+- Media attachment rate of 25% for content-rich discussions
+
+**Realism Metrics**:
+- 95% of course codes match university numbering scheme
+- Content distribution matches real university demographics
+- Academic calendar integration with actual semester patterns
+- Interaction times reflect realistic student/professor behavior
+
+**System Validation Metrics**:
+- All core features exercised through sample data
+- Edge cases covered through varied content scenarios
+- Performance testing validated with realistic load patterns
+- User flows tested from onboarding to advanced features
+
 ## Phase 2: Implementation Tasks *(Not Created Here)*
 
 **Next Command**: `/speckit.tasks` to generate implementation tasks
 
 **Implementation Phases**:
-1. **Core Platform**: GoToSocial + Node.js basic setup
-2. **Frontend**: PWA with core social features
-3. **Integration**: University systems and real-time features
-4. **Testing**: Comprehensive test suite and performance validation
+1. **Core Platform**: Node.js + Express + SQLite + In-memory real-time
+2. **Frontend**: PWA with core social features and sample data integration
+3. **Integration**: University systems (mock → real) and real-time features
+4. **Testing**: Comprehensive test suite with sample data validation
 5. **Deployment**: Production setup and monitoring
 
 ## Success Criteria
