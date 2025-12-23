@@ -94,6 +94,7 @@ Examples of foundational tasks (adjust based on your project):
 - [ ] T015 [US1] Implement [endpoint/feature] in src/[location]/[file].py
 - [ ] T016 [US1] Add validation and error handling
 - [ ] T017 [US1] Add logging for user story 1 operations
+- [ ] T018 [US1] Document learning insights and key decisions in docs/learning/[feature]-us1.md
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 
@@ -116,6 +117,7 @@ Examples of foundational tasks (adjust based on your project):
 - [ ] T021 [US2] Implement [Service] in src/services/[service].py
 - [ ] T022 [US2] Implement [endpoint/feature] in src/[location]/[file].py
 - [ ] T023 [US2] Integrate with User Story 1 components (if needed)
+- [ ] T024 [US2] Document learning insights and key decisions in docs/learning/[feature]-us2.md
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently
 
@@ -137,6 +139,7 @@ Examples of foundational tasks (adjust based on your project):
 - [ ] T026 [P] [US3] Create [Entity] model in src/models/[entity].py
 - [ ] T027 [US3] Implement [Service] in src/services/[service].py
 - [ ] T028 [US3] Implement [endpoint/feature] in src/[location]/[file].py
+- [ ] T029 [US3] Document learning insights and key decisions in docs/learning/[feature]-us3.md
 
 **Checkpoint**: All user stories should now be independently functional
 
@@ -156,6 +159,9 @@ Examples of foundational tasks (adjust based on your project):
 - [ ] TXXX [P] Additional unit tests (if requested) in tests/unit/
 - [ ] TXXX Security hardening
 - [ ] TXXX Run quickstart.md validation
+- [ ] TXXX Create comprehensive learning summary in docs/learning/[feature]-summary.md
+- [ ] TXXX Document how new skills integrate with existing design knowledge
+- [ ] TXXX Identify extension opportunities for future learning
 
 ---
 

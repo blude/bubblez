@@ -31,7 +31,23 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+### Learning Objectives Alignment
+- [ ] Feature supports Spec-Driven Development learning goals
+- [ ] Feature provides practice opportunities for existing skills (CSS, HTML, JS, PHP, Swift)
+- [ ] Feature complexity is appropriate for constructivist learning
+- [ ] Documentation includes educational insights and decision rationale
+
+### Core Principles Compliance
+- [ ] Simplicity First: Solution is the simplest that meets requirements
+- [ ] Incremental Development: Feature can be delivered in small, testable increments
+- [ ] Separation of Concerns: UI, business logic, and domain concepts are distinct
+- [ ] Learning-First Development: Feature serves as clear learning opportunity
+
+### Rapid Prototyping Considerations
+- [ ] Feature supports quick iteration and learning loops
+- [ ] Technical debt is acceptable when it accelerates learning
+- [ ] Implementation prioritizes understanding over optimization
+- [ ] Feature includes reflection points for learning integration
 
 ## Project Structure
 

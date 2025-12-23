@@ -75,6 +75,28 @@
 - What happens when [boundary condition]?
 - How does system handle [error scenario]?
 
+## Learning Objectives *(mandatory)*
+
+<!--
+  ACTION REQUIRED: Define what the developer will learn from implementing this feature.
+  Connect to existing skills and new concepts.
+-->
+
+### Primary Learning Goals
+- **LG-001**: Developer will learn [specific concept, e.g., "Spec-Driven Development workflow"]
+- **LG-002**: Developer will practice [existing skill, e.g., "CSS Grid layouts in modern context"]
+- **LG-003**: Developer will understand [new pattern, e.g., "dependency injection principles"]
+
+### Skill Integration
+- **Existing Skills Applied**: [e.g., "CSS styling", "JavaScript DOM manipulation", "PHP backend logic"]
+- **New Concepts Introduced**: [e.g., "Test-Driven Development", "API design patterns", "Swift modern practices"]
+- **Design Thinking Connection**: [e.g., "User-centered implementation", "Iterative prototyping mindset"]
+
+### Constructivist Elements
+- **Scaffolding**: [How this feature builds on existing knowledge]
+- **Reflection Points**: [Key insights the developer should document]
+- **Extension Opportunities**: [How the developer can extend and modify the feature]
+
 ## Requirements *(mandatory)*
 
 <!--
