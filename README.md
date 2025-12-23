@@ -68,30 +68,30 @@ We use a **progressive complexity** approach that prioritizes learning and rapid
 ```
 Phase 1: Simple Development (Current)
 ┌─────────────────┐    ┌──────────────────┐
-│   PWA Frontend │◄──►│  Node.js Backend │
+│   PWA Frontend  │◄──►│  Node.js Backend │
 │   (React/Vite)  │    │  (Express.js)    │
 └─────────────────┘    └──────────────────┘
                                 │
                                 ▼
                        ┌──────────────────┐
-                       │  SQLite         │
+                       │  SQLite          │
                        │  + In-memory     │
                        │  + Local Files   │
                        └──────────────────┘
 
 Phase 2+: Production Patterns (Gradual)
 ┌─────────────────┐    ┌──────────────────┐
-│   PWA Frontend │◄──►│  Node.js Backend │
+│   PWA Frontend  │◄──►│  Node.js Backend │
 │   (React/Vite)  │    │  + PostgreSQL    │
 └─────────────────┘    │  + Redis         │
                        │  + S3 Storage    │
                        └──────────────────┘
 
 Phase 3+: Federation (Advanced)
-┌─────────────────┐    ┌──────────────────┐
-│   PWA Frontend │◄──►│  Node.js + GoToSocial │
-│   (React/Vite)  │    │  (ActivityPub)   │
-└─────────────────┘    └──────────────────┘
+┌─────────────────┐    ┌───────────────────────┐
+│   PWA Frontend  │◄──►│  Node.js + GoToSocial │
+│   (React/Vite)  │    │  (ActivityPub)        │
+└─────────────────┘    └───────────────────────┘
 ```
 
 ### Technology Stack
