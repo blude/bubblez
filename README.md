@@ -1,5 +1,7 @@
 # Bubblez: University Social Network
 
+> ⚠️ Attention: This project is under development.
+
 A decentralized and transparent social networking platform designed specifically for university communities, connecting students, professors, and staff through academic collaboration, organizational coordination, and social engagement.
 
 ## 🎯 Project Overview
