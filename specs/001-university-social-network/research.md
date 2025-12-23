@@ -5,38 +5,54 @@
 
 ## Backend Technology Stack
 
-### Decision: GoToSocial + Node.js Real-time Layer
+### Decision: Progressive Development Approach
 
+**Phase 1: Node.js-Only Development**
 **Rationale**: 
+- Single language ecosystem reduces learning curve and setup friction
+- Immediate development without external service dependencies
+- Builds on existing JavaScript knowledge
+- Hot reload and instant iteration for learning
+
+**Phase 2+: Add GoToSocial Federation Module**
+**Rationale**:
 - GoToSocial provides lightweight ActivityPub federation (~1GB RAM vs Mastodon's 8GB+)
-- Node.js handles real-time features efficiently with WebSocket support
-- Separation allows federated social features (GoToSocial) from custom university features (Node.js)
-- Builds on existing JavaScript knowledge while introducing Go
+- Federation as optional module maintains development simplicity
+- Learn Go systems programming when ready
+- Separation concerns: core features (Node.js) + federation (GoToSocial)
 
-**Architecture**:
+**Progressive Architecture**:
 ```
-Frontend → Node.js API → GoToSocial → Fediverse
-    ↓
-WebSocket Layer (Socket.io) → Redis → University Systems
+Phase 1: Frontend → Node.js → SQLite → In-memory Storage
+Phase 2+: Frontend → Node.js → PostgreSQL/Redis → S3/University APIs
+Phase 3+: Frontend → Node.js + GoToSocial → Federation
 ```
 
-**Performance**: Node.js handles 10k+ concurrent WebSocket connections with <5ms latency
+**Performance**: Node.js handles 10k+ concurrent WebSocket connections with <5ms latency (production with Redis)
 
 ## Database Storage Solution
 
-### Decision: PostgreSQL + S3-compatible Storage
+### Decision: Progressive Database Approach
 
+**Phase 1: SQLite + Local Storage**
 **Rationale**:
-- PostgreSQL excellent for social network queries and complex relationships
+- Zero external dependencies for immediate development
+- Instant setup with single file database
+- Perfect for social network data modeling and basic queries
+- Local file storage eliminates S3 complexity during development
+- Focus on core features without infrastructure overhead
+
+**Phase 2+: PostgreSQL + S3 Migration Path**
+**Rationale**:
+- PostgreSQL excellent for production social network queries and complex relationships
 - Native JSONB support for ActivityPub federation data
 - GoToSocial officially supports PostgreSQL
-- S3-compatible storage for media files (MinIO for self-hosted, cloud options)
+- S3-compatible storage for production media handling
 - Enterprise-grade skills with high learning value
 
 **Configuration**:
-- Primary: PostgreSQL for structured data
-- Media: S3-compatible storage with URL references in database
-- Redis: Caching and WebSocket session management
+- **Phase 1**: SQLite for structured data + local filesystem for media
+- **Phase 2+**: PostgreSQL for structured data + S3 for media + Redis for caching
 
 ## Testing Framework Strategy
 

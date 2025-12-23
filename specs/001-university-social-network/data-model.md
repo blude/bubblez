@@ -292,22 +292,36 @@ enum DataType {
 
 ## Performance Considerations
 
-### Indexing Strategy
-- Users: email, username, universityId
-- Droplets: authorId, createdAt, bubbles[]
-- Bubbles: hashtag, universityId
-- Interactions: userId, dropletId, type
+### Development Configuration (Phase 1)
+- **Database**: SQLite with basic indexing
+- **Caching**: In-memory storage for real-time data
+- **Media**: Local filesystem storage
+- **Performance**: Optimized for development iteration speed
 
-### Caching Strategy
-- User profiles: Redis (30 min TTL)
-- Bubble membership: Redis (15 min TTL)
-- Trending content: Redis (5 min TTL)
-- University data: PostgreSQL + Redis sync
+### Production Configuration (Phase 2+)
+- **Database**: PostgreSQL with optimized indexing strategy
+- **Indexing Strategy**:
+  - Users: email, username, universityId
+  - Droplets: authorId, createdAt, bubbles[]
+  - Bubbles: hashtag, universityId
+  - Interactions: userId, dropletId, type
+- **Caching Strategy**:
+  - User profiles: Redis (30 min TTL)
+  - Bubble membership: Redis (15 min TTL)
+  - Trending content: Redis (5 min TTL)
+  - University data: PostgreSQL + Redis sync
+- **Media**: S3-compatible storage with CDN integration
 
 ### Data Archiving
 - Archive droplets older than 2 years
 - Soft delete with 30-day grace period
 - University data retention policies respected
+
+### Migration Paths
+- **SQLite → PostgreSQL**: Automated migration scripts
+- **In-memory → Redis**: Transparent caching layer upgrade
+- **Local → S3**: Media file migration with URL updates
+- **Mock → Real APIs**: University integration module upgrade
 
 ## Security Considerations
 
