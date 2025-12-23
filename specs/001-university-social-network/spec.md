@@ -3,7 +3,7 @@
 **Feature Branch**: `001-university-social-network`  
 **Created**: 2025-12-23  
 **Status**: Draft  
-**Input**: User description: "Build a decentralized and transparent social networking app that connects students, professors and staff in the university, serving as a platform for discoverying, finding, sharing, collaborating on academic topics as well as dealing with organizational and "bureaucractic" academic matters, like activities, events, support groups, dealines, media files, etc. Users contributions are primarly displayed as floating droplets in a federated feed, which are then organized into subclusters called "bubbles" (traditionally hashtags). Users can join and leave bubbles that interest then or may join a hotseat game where users are added and thrown around between temporary groups. Every contribution, droplet and bubble can be commented, upvoted, downvoted, shared, bookmarked and even gifted with a special badge. While this social network is oriented at first towards one university, it's planned with the goal of serving as a platform that can be introduced by other universities, connecting them together."
+**Input**: User description: "Build a decentralized and transparent social networking app that connects students, professors and staff in the university, serving as a platform for discoverying, finding, sharing, collaborating on academic topics as well as dealing with organizational and "bureaucractic" academic matters, like activities, events, support groups, dealines, media files, etc. Users contributions are primarly displayed as floating droplets in a federated feed, which are then organized into subclusters called "bubbles" (traditionally hashtags). Users can join and leave bubbles that interest then or may join a hotseat game where users are added and thrown around between temporary groups. Every contribution, droplet and bubble can be commented, upvoted, downvoted, shared, bookmarked and even gifted with a special badge. While this social network is oriented at first towards one university, it's planned with the goal of serving as a platform that can be introduced by other universities, connecting them together. Addition: small but important addition: in order to work seamlessly with existing university systems and user's existing behaviours, the social network should be able to connect to and retrieve information from university systems (including but not limited to e-learning platform, student portal, intranet, public presence portal, etc)"
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -71,7 +71,24 @@ Users can comment, upvote, downvote, share, bookmark, and gift badges to droplet
 
 ---
 
-### User Story 5 - Multi-University Federation (Priority: P3)
+### User Story 5 - University Systems Integration (Priority: P1)
+
+The social network seamlessly connects to existing university systems to retrieve and display relevant information, enhancing user experience with familiar data sources.
+
+**Why this priority**: Integration with existing university systems is critical for adoption and user convenience - users expect access to their existing university data and workflows.
+
+**Independent Test**: Can be fully tested by configuring connections to university systems and verifying data retrieval and display functionality.
+
+**Acceptance Scenarios**:
+
+1. **Given** the platform is connected to the university's e-learning system, **When** a user views their feed, **Then** they see relevant course updates and assignments automatically imported
+2. **Given** integration with the student portal, **When** users check their profile, **Then** their enrollment status and academic information is accurately displayed
+3. **Given** connection to the university intranet, **When** users browse content, **Then** official announcements and events are automatically incorporated into relevant bubbles
+4. **Given** integration with the public presence portal, **When** users search for university information, **Then** public-facing content is accessible through the social network interface
+
+---
+
+### User Story 6 - Multi-University Federation (Priority: P3)
 
 The platform can be deployed by other universities and connected together for cross-institution collaboration.
 
@@ -94,6 +111,9 @@ The platform can be deployed by other universities and connected together for cr
 - What happens when media files exceed size limits or are in unsupported formats?
 - How does system handle conflicting badge assignments or voting manipulation?
 - What happens when federated content becomes unavailable due to remote university downtime?
+- How does system behave when university systems are temporarily unavailable or undergoing maintenance?
+- What happens when data from university systems conflicts with user-provided information?
+- How does system handle authentication failures when connecting to external university systems?
 
 ## Learning Objectives *(mandatory)*
 
@@ -101,16 +121,17 @@ The platform can be deployed by other universities and connected together for cr
 - **LG-001**: Developer will learn decentralized social network architecture and federation protocols
 - **LG-002**: Developer will practice real-time collaborative features and group dynamics implementation
 - **LG-003**: Developer will understand content organization algorithms and social engagement patterns
+- **LG-004**: Developer will learn external system integration patterns and data synchronization strategies
 
 ### Skill Integration
 - **Existing Skills Applied**: User authentication, content management systems, database design, API development
-- **New Concepts Introduced**: Federation protocols, real-time collaboration, social graph algorithms, content clustering
-- **Design Thinking Connection**: User-centered social interaction design, community building principles, cross-institution collaboration patterns
+- **New Concepts Introduced**: Federation protocols, real-time collaboration, social graph algorithms, content clustering, external system integration, data mapping
+- **Design Thinking Connection**: User-centered social interaction design, community building principles, cross-institution collaboration patterns, seamless system integration
 
 ### Constructivist Elements
-- **Scaffolding**: Build upon basic content management to create sophisticated social interaction patterns
-- **Reflection Points**: Document decisions about content organization, user engagement metrics, and federation strategies
-- **Extension Opportunities**: Implement advanced recommendation algorithms, gamification elements, and cross-university event coordination
+- **Scaffolding**: Build upon basic content management to create sophisticated social interaction patterns and external system integrations
+- **Reflection Points**: Document decisions about content organization, user engagement metrics, federation strategies, and university system integration approaches
+- **Extension Opportunities**: Implement advanced recommendation algorithms, gamification elements, cross-university event coordination, and additional university system integrations
 
 ## Requirements *(mandatory)*
 
@@ -128,6 +149,12 @@ The platform can be deployed by other universities and connected together for cr
 - **FR-010**: System MUST handle media file uploads with appropriate size limits and format validation
 - **FR-011**: System MUST maintain audit trails for all user interactions and content modifications
 - **FR-012**: System MUST provide moderation tools for community management and content quality control
+- **FR-013**: System MUST connect to university e-learning platforms to retrieve course information and assignments
+- **FR-014**: System MUST integrate with student portals to access enrollment and academic status data
+- **FR-015**: System MUST connect to university intranet systems to import official announcements and events
+- **FR-016**: System MUST integrate with public presence portals to display university-wide information
+- **FR-017**: System MUST handle authentication and authorization for external university system connections
+- **FR-018**: System MUST provide configurable data synchronization settings for different university systems
 
 ### Key Entities *(include if feature involves data)*
 
@@ -138,6 +165,8 @@ The platform can be deployed by other universities and connected together for cr
 - **Badge**: Recognition system for valuable contributions and community participation
 - **Interaction**: Comments, votes, shares, and bookmarks that create social engagement
 - **Federation**: Cross-university connection settings and content sharing rules
+- **University System**: External university platforms (e-learning, student portal, intranet, public presence) with connection configurations and data mappings
+- **Integration**: Data synchronization rules and authentication settings for university system connections
 
 ## Success Criteria *(mandatory)*
 
@@ -153,3 +182,6 @@ The platform can be deployed by other universities and connected together for cr
 - **SC-008**: Content moderation response time under 2 hours for reported issues
 - **SC-009**: Search and discovery features return relevant results with 90% user satisfaction
 - **SC-010**: Mobile app performance maintains 95% of desktop functionality with equivalent user experience
+- **SC-011**: University systems integration achieves 95% data synchronization accuracy with updates appearing in under 2 minutes
+- **SC-012**: 90% of users successfully access their university data through the social network within first week of use
+- **SC-013**: System maintains 99% uptime for university system connections with automatic failover during outages
