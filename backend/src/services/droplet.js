@@ -383,6 +383,58 @@ class DropletService {
       throw error;
     }
   }
+
+  // Get droplet replies
+  static async getDropletReplies(dropletId, options = {}) {
+    try {
+      const { limit = 20, offset = 0, userId } = options;
+
+      const replies = await Droplet.getReplies(dropletId, { limit, offset });
+      
+      // Add author information and check permissions
+      for (const reply of replies) {
+        reply.author = await DropletService.getDropletAuthor(reply.authorId);
+        
+        // Check if user can view this reply
+        if (userId && !DropletService.canUserViewDroplet(reply, userId)) {
+          // Filter out replies user can't see
+          return replies.filter(r => DropletService.canUserViewDroplet(r, userId));
+        }
+      }
+
+      return replies;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  // Get user's droplets
+  static async getUserDroplets(userId, options = {}) {
+    try {
+      const { limit = 20, offset = 0, requestingUserId } = options;
+
+      const userDroplets = await Droplet.findMany({
+        authorId: userId,
+        limit,
+        offset,
+        includeReplies: true
+      });
+
+      // Filter based on requesting user's permissions
+      const visibleDroplets = userDroplets.filter(droplet => {
+        return DropletService.canUserViewDroplet(droplet, requestingUserId);
+      });
+
+      // Add author information
+      for (const droplet of visibleDroplets) {
+        droplet.author = await DropletService.getDropletAuthor(droplet.authorId);
+      }
+
+      return visibleDroplets;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 module.exports = DropletService;

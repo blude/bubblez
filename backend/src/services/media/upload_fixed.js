@@ -1,9 +1,9 @@
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
-const config = require('../../config');
-const { ValidationError } = require('../../middleware/errors');
-const { logger } = require('../../middleware/errors');
+const config = require('../config');
+const { ValidationError } = require('../middleware/errors');
+const { logger } = require('../middleware/errors');
 
 // Ensure upload directory exists
 const uploadDir = config.media.uploadDir;
