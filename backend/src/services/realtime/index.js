@@ -1,5 +1,6 @@
 const config = require('../../config');
 const { logger } = require('../../middleware/errors');
+const FeedService = require('./feed');
 
 // Real-time service for managing socket connections and events
 const handleSocketConnection = (socket, io) => {
@@ -36,24 +37,58 @@ const handleSocketConnection = (socket, io) => {
   });
 
   // Handle feed updates
-  socket.on('feed:refresh', () => {
-    // Will emit updated feed to user
-    // Will be implemented in User Story 1
+  socket.on('feed:refresh', async (options) => {
+    try {
+      await FeedService.refreshUserFeed(userId, options);
+    } catch (error) {
+      logger.error(`Error refreshing feed for user ${userId}:`, error);
+      socket.emit('error', { message: 'Failed to refresh feed' });
+    }
+  });
+
+  // Handle feed subscription
+  socket.on('feed:subscribe', async () => {
+    try {
+      await FeedService.subscribeToFeed(userId, socket);
+    } catch (error) {
+      logger.error(`Error subscribing user ${userId} to feed:`, error);
+      socket.emit('error', { message: 'Failed to subscribe to feed' });
+    }
+  });
+
+  // Handle feed unsubscription
+  socket.on('feed:unsubscribe', async () => {
+    try {
+      await FeedService.unsubscribeFromFeed(userId, socket);
+    } catch (error) {
+      logger.error(`Error unsubscribing user ${userId} from feed:`, error);
+    }
   });
 
   // Handle typing indicators
-  socket.on('typing:start', (data) => {
-    socket.to(`bubble:${data.bubbleId}`).emit('typing:indicator', {
-      userId,
-      isTyping: true
-    });
+  socket.on('typing:start', async (data) => {
+    try {
+      await FeedService.sendTypingIndicator(userId, data.bubbleId, true, socket);
+    } catch (error) {
+      logger.error(`Error handling typing start:`, error);
+    }
   });
 
-  socket.on('typing:stop', (data) => {
-    socket.to(`bubble:${data.bubbleId}`).emit('typing:indicator', {
-      userId,
-      isTyping: false
-    });
+  socket.on('typing:stop', async (data) => {
+    try {
+      await FeedService.sendTypingIndicator(userId, data.bubbleId, false, socket);
+    } catch (error) {
+      logger.error(`Error handling typing stop:`, error);
+    }
+  });
+
+  // Handle search queries
+  socket.on('search:query', async (data) => {
+    try {
+      await FeedService.handleSearchQuery(data.query, userId);
+    } catch (error) {
+      logger.error(`Error handling search query:`, error);
+    }
   });
 
   // Handle disconnection
@@ -77,6 +112,9 @@ let io = null;
 
 const setIo = (socketIo) => {
   io = socketIo;
+  
+  // Initialize feed service when IO is set
+  FeedService.initialize(io);
 };
 
 const emitToUser = (userId, event, data) => {
@@ -123,6 +161,14 @@ const events = {
   // User Story 4 events
   INTERACTION_CREATED: 'interaction:created',
   INTERACTION_UPDATED: 'interaction:updated',
+  
+  // Real-time feed events
+  FEED_INITIALIZED: 'feed:initialized',
+  FEED_REFRESHED: 'feed:refreshed',
+  TRENDING_UPDATED: 'trending:updated',
+  USER_MENTIONED: 'user:mentioned',
+  SEARCH_SUGGESTIONS: 'search:suggestions',
+  FEED_STATS: 'feed:stats',
   
   // General events
   USER_ONLINE: 'user:online',

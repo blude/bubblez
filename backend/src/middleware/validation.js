@@ -23,8 +23,43 @@ const schemas = {
 
   // Droplet validation
   droplet: Joi.object({
-    content: Joi.string().min(1).max(5000).required(),
-    bubbles: Joi.array().items(Joi.string()).max(5).optional(),
+    content: Joi.string()
+      .min(1)
+      .max(5000)
+      .required()
+      .custom((value, helpers) => {
+        // Additional content validation
+        const trimmedContent = value.trim();
+        if (!trimmedContent) {
+          return helpers.error('content.empty');
+        }
+        
+        // Check for excessive whitespace
+        if (trimmedContent.split(/\s+/).filter(word => word.length > 0).length < 3) {
+          return helpers.error('content.tooShort');
+        }
+        
+        // Check for repeated characters (spam detection)
+        if (/(.)\1{4,}/.test(trimmedContent)) {
+          return helpers.error('content.spamPattern');
+        }
+        
+        return trimmedContent;
+      }, 'Content validation'),
+    bubbles: Joi.array()
+      .items(Joi.string().pattern(/^#\w+$/).max(50))
+      .max(5)
+      .optional()
+      .custom((value, helpers) => {
+        if (value && value.length > 0) {
+          // Check for duplicate hashtags
+          const uniqueBubbles = [...new Set(value.map(b => b.toLowerCase()))];
+          if (uniqueBubbles.length !== value.length) {
+            return helpers.error('bubbles.duplicateHashtags');
+          }
+        }
+        return value;
+      }, 'Bubble validation'),
     replyToId: Joi.string().uuid().optional(),
     visibility: Joi.string().valid('public', 'university', 'bubble', 'private').default('university')
   }),
@@ -105,6 +140,21 @@ const validate = (schemaName, source = 'body') => {
         message: detail.message,
         value: detail.context?.value
       }));
+
+      // Add custom error messages for content validation
+      const customMessages = {
+        'content.empty': 'Content cannot be empty or just whitespace',
+        'content.tooShort': 'Content must contain at least 3 meaningful words',
+        'content.spamPattern': 'Content appears to contain spam patterns (repeated characters)',
+        'bubbles.duplicateHashtags': 'Duplicate hashtags are not allowed'
+      };
+
+      details.forEach(detail => {
+        const customKey = detail.type;
+        if (customMessages[customKey]) {
+          detail.message = customMessages[customKey];
+        }
+      });
 
       return res.status(400).json({
         error: 'Validation failed',

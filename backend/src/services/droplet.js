@@ -2,7 +2,8 @@ const Droplet = require('../models/droplet');
 const MediaAttachment = require('../models/media');
 const Interaction = require('../models/interaction');
 const { emitToBubble, emitToUser, broadcastEvent, events } = require('../services/realtime');
-const { NotFoundError, ValidationError } = require('../middleware/errors');
+const { NotFoundError, ValidationError, ContentModerationError, RateLimitError } = require('../middleware/errors');
+const { getDatabase } = require('../database/connection');
 
 class DropletService {
   // Create a new droplet
@@ -208,6 +209,7 @@ class DropletService {
         LIMIT ? OFFSET ?
       `;
 
+      const db = getDatabase();
       const rows = await db.all(trendingQuery, [limit, offset]);
       
       const droplets = rows.map(row => Droplet.parseRow(row));
@@ -331,29 +333,75 @@ class DropletService {
   static async validateDropletContent(content, userId) {
     try {
       // Check for prohibited content
-      const prohibitedWords = ['spam', 'abuse', 'hate']; // Would be configurable
+      const prohibitedWords = ['spam', 'abuse', 'hate', 'violence']; // Would be configurable
+      const prohibitedPatterns = [
+        /(.)\1{10,}/, // Excessive character repetition
+        /(?:http|ftp)s?:\/\/[^\s]+/i, // URLs (would be handled separately)
+        /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi // Script tags
+      ];
       
       const contentLower = content.toLowerCase();
+      
+      // Check prohibited words
       for (const word of prohibitedWords) {
         if (contentLower.includes(word)) {
-          throw new ValidationError(`Content contains prohibited word: ${word}`);
+          throw new ContentModerationError(
+            `Content contains prohibited word: ${word}`,
+            'prohibited_content'
+          );
         }
       }
 
-      // Rate limiting check (simplified)
+      // Check prohibited patterns
+      for (const pattern of prohibitedPatterns) {
+        if (pattern.test(content)) {
+          throw new ContentModerationError(
+            'Content contains prohibited patterns',
+            'pattern_violation'
+          );
+        }
+      }
+
+      // Check for excessive caps (shouting)
+      const uppercaseRatio = (content.match(/[A-Z]/g) || []).length / content.length;
+      if (uppercaseRatio > 0.5 && content.length > 10) {
+        throw new ContentModerationError(
+          'Excessive capitalization detected',
+          'excessive_caps'
+        );
+      }
+
+      // Rate limiting check
       const recentDroplets = await Droplet.findMany({
         authorId: userId,
-        limit: 5
+        limit: 10,
+        orderBy: 'createdAt DESC'
       });
 
-      if (recentDroplets.length >= 5) {
+      if (recentDroplets.length >= 10) {
         const lastDropletTime = new Date(recentDroplets[0].createdAt);
         const now = new Date();
         const minutesSinceLastDroplet = (now - lastDropletTime) / (1000 * 60);
         
-        if (minutesSinceLastDroplet < 5) {
-          throw new ValidationError('Please wait before posting another droplet');
+        if (minutesSinceLastDroplet < 1) {
+          throw new RateLimitError(
+            'Please wait before posting another droplet',
+            Math.ceil(60 - minutesSinceLastDroplet * 60) // seconds to wait
+          );
         }
+      }
+
+      // Hourly rate limit
+      const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000);
+      const hourlyCount = recentDroplets.filter(d => 
+        new Date(d.createdAt) > oneHourAgo
+      ).length;
+
+      if (hourlyCount >= 30) {
+        throw new RateLimitError(
+          'Hourly posting limit exceeded',
+          3600 // 1 hour in seconds
+        );
       }
 
       return true;
@@ -377,6 +425,7 @@ class DropletService {
         WHERE authorId = ? AND deletedAt IS NULL
       `;
 
+      const db = getDatabase();
       const stats = await db.get(statsQuery, [userId]);
       return stats;
     } catch (error) {

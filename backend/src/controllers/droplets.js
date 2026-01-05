@@ -51,7 +51,7 @@ router.post('/',
       id: file.filename,
       type: require('../models/media').getMediaTypeFromMimeType(file.mimetype),
       url: `/uploads/${file.filename}`,
-      thumbnailUrl: require('../services/media/upload').generateThumbnailUrl(file),
+      thumbnailUrl: require('../services/media/upload_backup').generateThumbnailUrl(file),
       size: file.size,
       mimeType: file.mimeType
     })) : [];

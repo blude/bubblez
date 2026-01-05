@@ -75,38 +75,22 @@ description: "Task list for University Social Network implementation"
 - [X] T021 [P] [US1] Create MediaAttachment model in backend/src/models/media.js
 - [X] T022 [P] [US1] Create InteractionMetrics model in backend/src/models/interaction.js
 - [X] T023 [US1] Implement DropletService in backend/src/services/droplet.js (depends on T020, T021, T022)
-- [ ] T024 [US1] Implement droplets API endpoints in backend/src/controllers/droplets.js
-- [ ] T025 [US1] Add droplet creation validation and error handling
-- [ ] T026 [US1] Implement real-time feed updates via Socket.io in backend/src/services/realtime/feed.js
-- [ ] T027 [US1] Create frontend droplet creation component in frontend/src/components/droplets/DropletCreation.js
-- [ ] T028 [US1] Create frontend feed display component in frontend/src/components/feed/FeedDisplay.js
+- [X] T024 [US1] Implement droplets API endpoints in backend/src/controllers/droplets.js
+- [X] T025 [US1] Add droplet creation validation and error handling
+- [X] T026 [US1] Implement real-time feed updates via Socket.io in backend/src/services/realtime/feed.js
+- [X] T027 [US1] Create frontend droplet creation component in frontend/src/components/droplets/DropletCreation.js
+- [X] T028 [US1] Create frontend feed display component in frontend/src/components/feed/FeedDisplay.js
 - [ ] T029 [US1] Add frontend API client for droplet operations in frontend/src/services/api.js
 - [ ] T030 [US1] Implement hashtag parsing and bubble organization in backend/src/services/content/parser.js
 - [ ] T031 [US1] Add media file upload handling and validation
 - [ ] T032 [US1] Document learning insights and key decisions in docs/learning/university-social-us1.md
-
-**Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
-
----
-
-## Phase 4: User Story 2 - Discover and Join Bubbles (Priority: P1)
-
-**Goal**: Users can discover existing bubbles and join them to see relevant content from other users
-
-**Independent Test**: Can search for bubbles, join them, and verify content from those bubbles appears in the user's feed
-
-### Tests for User Story 2
-
-- [ ] T033 [P] [US2] Contract test for GET /bubbles in backend/tests/contract/test_bubbles.js
-- [ ] T034 [P] [US2] Integration test for bubble discovery and joining in backend/tests/integration/test_bubble_discovery.js
-- [ ] T035 [P] [US2] E2E test for bubble search and join workflow in frontend/tests/e2e/test_bubble_interaction.test.js
-
-### Implementation for User Story 2
-
-- [ ] T036 [P] [US2] Create Bubble model in backend/src/models/bubble.js
-- [ ] T037 [US2] Implement BubbleService in backend/src/services/bubble.js
-- [ ] T038 [US2] Implement bubbles API endpoints in backend/src/controllers/bubbles.js
-- [ ] T039 [US2] Create frontend bubble discovery component in frontend/src/components/bubbles/BubbleDiscovery.js
+- [X] T033 [P] [US2] Contract test for GET /bubbles in backend/tests/contract/test_bubbles.js
+- [X] T034 [P] [US2] Integration test for bubble discovery and joining in backend/tests/integration/test_bubble_discovery.js
+- [X] T035 [P] [US2] E2E test for bubble search and join workflow in frontend/tests/e2e/test_bubble_interaction.test.js
+- [X] T036 [P] [US2] Create Bubble model in backend/src/models/bubble.js
+- [X] T037 [US2] Implement BubbleService in backend/src/services/bubble.js
+- [X] T038 [US2] Implement bubbles API endpoints in backend/src/controllers/bubbles.js
+- [X] T039 [US2] Create frontend bubble discovery component in frontend/src/components/bubbles/BubbleDiscovery.js
 - [ ] T040 [US2] Create frontend bubble management component in frontend/src/components/bubbles/BubbleManager.js
 - [ ] T041 [US2] Implement bubble search and filtering logic
 - [ ] T042 [US2] Update feed service to prioritize joined bubble content

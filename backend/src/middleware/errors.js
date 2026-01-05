@@ -59,6 +59,27 @@ class ForbiddenError extends AppError {
   }
 }
 
+class ContentModerationError extends AppError {
+  constructor(message, reason = null) {
+    super(message, 422, 'CONTENT_MODERATION');
+    this.reason = reason;
+  }
+}
+
+class RateLimitError extends AppError {
+  constructor(message = 'Rate limit exceeded', retryAfter = null) {
+    super(message, 429, 'RATE_LIMITED');
+    this.retryAfter = retryAfter;
+  }
+}
+
+class MediaUploadError extends AppError {
+  constructor(message, fileType = null) {
+    super(message, 400, 'MEDIA_UPLOAD_ERROR');
+    this.fileType = fileType;
+  }
+}
+
 // Error handling middleware
 const errorHandler = (err, req, res, next) => {
   let error = { ...err };
@@ -108,6 +129,21 @@ const errorHandler = (err, req, res, next) => {
     statusCode = 400;
     code = 'UNEXPECTED_FILE';
     message = 'Unexpected file field';
+  } else if (err instanceof ContentModerationError) {
+    statusCode = err.statusCode;
+    code = err.code;
+    message = err.message;
+    details = err.reason ? { reason: err.reason } : null;
+  } else if (err instanceof RateLimitError) {
+    statusCode = err.statusCode;
+    code = err.code;
+    message = err.message;
+    details = err.retryAfter ? { retryAfter: err.retryAfter } : null;
+  } else if (err instanceof MediaUploadError) {
+    statusCode = err.statusCode;
+    code = err.code;
+    message = err.message;
+    details = err.fileType ? { fileType: err.fileType } : null;
   }
 
   // Add stack trace in development
@@ -155,6 +191,9 @@ module.exports = {
   NotFoundError,
   UnauthorizedError,
   ForbiddenError,
+  ContentModerationError,
+  RateLimitError,
+  MediaUploadError,
   rateLimitHandler,
   logger
 };
